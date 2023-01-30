@@ -3,55 +3,62 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-    const [display, setDisplay] = useState("0");
+    const [expression, setExpression] = useState("");
+    const [result, setResult] = useState("");
 
-    function handleClear() {
-        setDisplay("0");
+    const handleNumber = (symbol) => {
+        if (expression === "0") {
+            setExpression(symbol.target.value);
+        } else {
+            setExpression(expression + symbol.target.value);
+        }
     }
 
-    function handleEquals() {
-
+    const handleClear = () => {
+        setExpression("");
+        setResult("");
     }
 
-// problem: 
-
-    function handleNumber(symbol) {
-        if (display === '0') {
-            setDisplay(symbol);
-          } else {
-            setDisplay(display + symbol);
-          }
-        };
-
-    function handleDecimal() {
-        
+    const handleEquals = () => {
+        try {
+            setResult(eval(expression));
+        } catch(error) {
+            setResult("Error");
+        }
+        setResult(eval(expression));
     }
 
-    function handleOperator(symbol) {
-
+    const handleDecimal = () => {
+        if (!display.includes(".")) {
+            setDisplay(display + ".");
+        } 
     }
 
+    const handleOperator = (symbol) => {
+        setExpression(expression + symbol.target.value);
+    }
 
     return (
         <div id="Application">
-            <div id="display">{display}</div>
+            <div id="display">{expression}</div>
+            <div id="result">{result}</div>
             <div id="symbols">
-                <button id="equals" onClick="">=</button>
-                <button id="zero" onClick={() => handleNumber("0")}>0</button>
-                <button id="one" onClick={() => handleNumber("1")}>1</button>
-                <button id="two" onClick={() => handleNumber("2")}>2</button>
-                <button id="three" onClick={() => handleNumber("3")}>3</button>
-                <button id="four" onClick={() => handleNumber("4")}>4</button>
-                <button id="five" onClick={() => handleNumber("5")}>5</button>
-                <button id="six" onClick={() => handleNumber("6")}>6</button>
-                <button id="seven" onClick={() => handleNumber("7")}>7</button>
-                <button id="eight" onClick={() => handleNumber("8")}>8</button>
-                <button id="nine" onClick={() => handleNumber("9")}>9</button>
-                <button id="add">+</button>
-                <button id="subtract">-</button>
-                <button id="multiply">*</button>
-                <button id="divide">/</button>
-                <button id="decimal">.</button>
+                <button id="equals" onClick={handleEquals}>=</button>
+                <button id="zero" value="0" onClick={handleNumber}>0</button>
+                <button id="one" value="1" onClick={handleNumber}>1</button>
+                <button id="two" value="2" onClick={handleNumber}>2</button>
+                <button id="three" value="3" onClick={handleNumber}>3</button>
+                <button id="four" value="4" onClick={handleNumber}>4</button>
+                <button id="five" value="5" onClick={handleNumber}>5</button>
+                <button id="six" value="6" onClick={handleNumber}>6</button>
+                <button id="seven" value="7" onClick={handleNumber}>7</button>
+                <button id="eight" value="8" onClick={handleNumber}>8</button>
+                <button id="nine" value="9" onClick={handleNumber}>9</button>
+                <button id="add" value="+" onClick={handleOperator}>+</button>
+                <button id="subtract" value="-" onClick={handleOperator}>-</button>
+                <button id="multiply" value="*" onClick={handleOperator}>*</button>
+                <button id="divide" value="/" onClick={handleOperator}>/</button>
+                <button id="decimal" onClick={handleDecimal}>.</button>
                 <button id="clear" onClick={handleClear}>AC</button>
             </div>
         </div>
