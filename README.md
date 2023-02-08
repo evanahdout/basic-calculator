@@ -8,4 +8,4 @@ This application was built using React.
 [GitHub Page](https://evanahdout.github.io/basic-calculator/)
 
 ## Preview
-![Basic calculator webpage](markdown-previewer.png)
+![Basic calculator webpage](basic-calculator.png)
